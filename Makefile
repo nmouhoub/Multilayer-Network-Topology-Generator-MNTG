@@ -11,8 +11,8 @@ CD = cd
 CP = cp
 RM = rm
 
-SRC_PROG = $(wildcard Model/Utils/*.cpp) $(wildcard Model/*.cpp)
-SRC_TOPO = $(wildcard Topologies/*.dot Topologies/*.png Topologies/*.txt) 
+SRC_PROG = $(wildcard src/*.cpp)
+SRC_TOPO = $(wildcard examples/*.dot examples/*.png examples/*.txt) 
 
 OBJ_PROG = $(SRC_PROG:.cpp=.o)
 
@@ -37,11 +37,11 @@ prog: $(OBJ_PROG)
 	@echo "****************Make Program Successful********************"   
 
 doc: 
-	$(CP) -rf Model readme.md licence.md Libs/DoxygenCMake
-	$(CD) Doc && $(CMAKE) ../Libs/DoxygenCMake
-	$(MAKEDOC) -C Doc 
-	$(CXX) -o doc Doc/Doc.cpp
-	$(CD) Libs/DoxygenCMake && $(RM) -rf Model readme.md licence.md
+	$(CP) -rf src readme.md licence.md lib/DoxygenCMake
+	$(CD) doc && $(CMAKE) ../lib/DoxygenCMake
+	$(MAKEDOC) -C doc 
+	$(CXX) -o doc doc/doc.cpp
+	$(CD) libs/DoxygenCMake && $(RM) -rf model readme.md licence.md
 	@echo "********************Make Doc Successful********************"
 
 %.o: %.cpp
@@ -55,8 +55,7 @@ clean_prog :
 	@echo "************Clean Program And Test Successful**************"
 
 clean_doc : 
-	$(RM) -rf $(filter-out Doc/Doc.cpp, $(wildcard Doc/*) )
-	$(RM) -f doc
+	$(RM) -rf $(filter-out doc/doc.cpp, $(wildcard doc/*) )
 	@echo "*******************Clean Doc Successful********************"
 
 clean_topologies : 

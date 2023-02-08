@@ -1,5 +1,12 @@
-#include "GraphGenerator.hpp"
+/**
+ * 
+ */
 
+#include "../include/GraphGenerator.h"
+
+/**
+ * 
+ */
 
 void GraphGenerator::generate_erdos_renyi_graph(int rand_seed, ERGen type, int n, float p, int directed, int loops)
 {
@@ -15,8 +22,11 @@ void GraphGenerator::generate_erdos_renyi_graph(int rand_seed, ERGen type, int n
 	}
 }
 
-void GraphGenerator::generate_barabasi_albert_graph(int rand_seed, BAGen type, int n, float p, int m, const igraph_vector_t *outseq,
-			                         int outpref, float A, int directed, const igraph_t *start_from)
+/**
+ * 
+ */
+
+void GraphGenerator::generate_barabasi_albert_graph(int rand_seed, BAGen type, int n, float p, int m, const igraph_vector_t *outseq, int outpref, float A, int directed, const igraph_t *start_from)
 {
 	int error_code = igraph_rng_seed(igraph_rng_default(), rand_seed);
 	if ( error_code != 0 )
@@ -29,20 +39,36 @@ void GraphGenerator::generate_barabasi_albert_graph(int rand_seed, BAGen type, i
 	}
 }
 
+/**
+ * 
+ */
+
 Graph GraphGenerator::get_graph()
 {
 	return g;
 }
+
+/**
+ * 
+ */
 
 int GraphGenerator::get_nb_vertices_graph()
 {
 	return igraph_vcount(&g);
 }
 
+/**
+ * 
+ */
+
 int GraphGenerator::get_nb_edges_graph()
 {
 	return igraph_ecount(&g);
 }
+
+/**
+ * 
+ */
 
 set<int> GraphGenerator::get_vertices_graph()
 {
@@ -59,6 +85,10 @@ set<int> GraphGenerator::get_vertices_graph()
     return vertices;
 }	
 
+/**
+ * 
+ */
+
 set<pair<int,int>> GraphGenerator::get_edges_graph()
 {
 	set<pair<int,int>> edges;
@@ -74,6 +104,10 @@ set<pair<int,int>> GraphGenerator::get_edges_graph()
     igraph_eit_destroy(&eit);
     return edges;
 }
+
+/**
+ * 
+ */
 
 set<int> GraphGenerator::get_neighbors(int id)
 {
@@ -92,10 +126,18 @@ set<int> GraphGenerator::get_neighbors(int id)
 	return neighbors;
 }
 
+/**
+ * 
+ */
+
 void GraphGenerator::write_graph(FILE *path)
 {
 	igraph_write_graph_dot(&g, path);
 }
+
+/**
+ * 
+ */
 
 GraphGenerator::~GraphGenerator()
 {

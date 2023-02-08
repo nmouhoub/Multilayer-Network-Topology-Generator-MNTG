@@ -1,15 +1,21 @@
-#ifndef LINK_HPP
-#define LINK_HPP
+/**
+ *
+ */
 
+#ifndef LINK_H
+#define LINK_H
 
 #include <utility> 
 #include <unordered_map>
-
-#include "AdaptationFunction.hpp"
+#include "../include/AdaptationFunction.h"
 
 using namespace std;
 
-typedef unordered_map<AdaptationFunction*, int> MapCost;
+/**
+ *
+ */
+
+typedef unordered_map<AdaptationFunction*, int> MapCost; // 
 
 
 class Link
@@ -21,13 +27,10 @@ class Link
 
 	public :
 		Link(int _src, int _dest);
-
 		int get_src();
 		int get_dest();	
-
 		void set_src(int _src);
 		void set_dest(int _dest);
-
 		MapCost get_map_cost();
 		void set_map_cost(MapCost _map_cost);
 		int get_cost(AdaptationFunction *adapt_func);
