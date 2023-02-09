@@ -17,13 +17,13 @@ TopologyGenerator::TopologyGenerator()
  * 
  */
 
-Network* TopologyGenerator::generate_mono_random_topology(char* gen_type, int rand_seed, int nb_nodes, int m_attach, int p_attach, int c_prob, int nb_protocols, int f_prob)
+Network* TopologyGenerator::generate_mono_random_topology(char* gen_type, int rand_seed, int nb_nodes, int m_attach, int p_attach, int c_prob, int nb_protocols, float f_prob, int link_cost, int cv_cost, int ec_cost, int dc_cost)
 {
     generate_mono_random_graph(gen_type, rand_seed, nb_nodes, m_attach, p_attach, c_prob);
     set<char> protocols = generate_protocols(nb_protocols);
     set<AdaptationFunction*> adaptation_functions = generate_adaptation_functions(protocols);
     set<Node*> nodes = generate_nodes(rand_seed, f_prob, adaptation_functions);
-    set<Link*> links = generate_links(default_cost, nodes);
+    set<Link*> links = generate_links(link_cost, cv_cost, ec_cost, dc_cost, nodes);
     Network *network = new Network(nodes, links, protocols, adaptation_functions);
     return network; 
 }
@@ -38,7 +38,7 @@ void TopologyGenerator::generate_mono_random_graph(char* gen_type, int rand_seed
     {
         graph_generator->generate_erdos_renyi_graph(rand_seed, GNP, nb_nodes, c_prob, UnDirected, NoLoops);
     }
-    if (strcmp(gen_type,"BA") == 0) 
+    else if (strcmp(gen_type,"BA") == 0) 
     {
         graph_generator->generate_barabasi_albert_graph(rand_seed, PSUMTREE, nb_nodes, p_attach, m_attach, 0, 0, 1, UnDirected, 0);
     }
@@ -126,7 +126,7 @@ set<Node*> TopologyGenerator::generate_nodes(int rand_seed, float f_prob, set<Ad
  * 
  */
 
-set<Link*> TopologyGenerator::generate_links(int cost, set<Node*> nodes)
+set<Link*> TopologyGenerator::generate_links(int link_cost, int cv_cost, int ec_cost, int dc_cost, set<Node*> nodes)
 {
     set<Link*> links;
 
@@ -144,12 +144,63 @@ set<Link*> TopologyGenerator::generate_links(int cost, set<Node*> nodes)
 
             for(auto f_src : node_src->get_adapt_functions() ) 
             {
-                map_cost_src.insert(make_pair(f_src, cost));
-
+                switch (f_src->get_type())
+                {
+                    case 0:
+                    {
+                        if (f_src->get_from() == f_src->get_to() )
+                        {
+                            map_cost_src.insert(make_pair(f_src, link_cost));
+                        }
+                        else
+                        {
+                            map_cost_src.insert(make_pair(f_src, cv_cost));
+                        }
+                        break;
+                    }
+                    case 1:
+                    {
+                        map_cost_src.insert(make_pair(f_src, ec_cost));
+                        break;
+                    }
+                    case 2: 
+                    {
+                        map_cost_src.insert(make_pair(f_src, dc_cost));
+                        break; 
+                    }
+                    default:
+                    break;
+                }
             }
             for(auto f_dest : node_dest->get_adapt_functions() ) 
             {   
-                map_cost_dest.insert(make_pair(f_dest, cost));
+                switch (f_dest->get_type())
+                {
+                    case 0:
+                    {
+                        if (f_dest->get_from() == f_dest->get_to() )
+                        {
+                            map_cost_dest.insert(make_pair(f_dest, link_cost));
+                        }
+                        else
+                        {
+                            map_cost_dest.insert(make_pair(f_dest, cv_cost));
+                        }
+                        break;
+                    }
+                    case 1:
+                    {
+                        map_cost_dest.insert(make_pair(f_dest, ec_cost));
+                        break;
+                    }
+                    case 2: 
+                    {
+                        map_cost_dest.insert(make_pair(f_dest, dc_cost));
+                        break; 
+                    }
+                    default:
+                    break;
+                }
             }
 
             l1->set_map_cost(map_cost_src);
@@ -184,6 +235,48 @@ Node* TopologyGenerator::get_node(set<Node*> nodes, int _id)
 	}	
 	return nullptr;
 }
+
+/**
+ * 
+ */
+
+void TopologyGenerator::write_topology(Network *network, char *out_path)
+{
+    ofstream topo_file;
+    auto path = out_path + string{".txt"} ; 
+    topo_file.open (path);
+    if(!topo_file) 
+    { 
+       cerr <<"error : output file not defined !" << endl; 
+    }
+    else
+    {
+        topo_file << "MULTILAYER NETWORK (nb_of_nodes nb_of_links nb_of_protocols)" << endl;
+        topo_file << network->get_nodes().size() << ' ' 
+                  << network->get_links().size() << ' ' 
+                  << network->get_protocols().size() << endl; 
+        topo_file << endl;
+        topo_file << "NODES (id_number list_of_protocols)" << endl;
+        for(auto n : network->get_nodes())
+        {
+            topo_file << n->get_id() << endl;
+        }
+        topo_file << endl;
+        topo_file << "LINKS (src_node dest_node list_of_adaptation_functions_with_costs)" << endl;
+        for(auto l : network->get_links())
+        {
+            topo_file << l->get_src() << ' ' << l->get_dest() ;
+            for(auto p : l->get_map_cost())
+            {
+                topo_file << ' ' << p.first->get_type() << ' ' << p.first->get_from() << ' ' << p.first->get_to()  
+                << ' ' << p.second ;
+            }
+            topo_file << endl;
+        }
+        topo_file.close();
+    }
+}
+
 
 /**
  * 
