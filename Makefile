@@ -12,7 +12,7 @@ CP = cp
 RM = rm
 
 SRC_PROG = $(wildcard src/*.cpp)
-SRC_TOPO = $(wildcard examples/*.dot examples/*.png examples/*.txt) 
+SRC_TOPO = $(wildcard data/*.txt) 
 
 OBJ_PROG = $(SRC_PROG:.cpp=.o)
 

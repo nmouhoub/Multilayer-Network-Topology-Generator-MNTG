@@ -17,28 +17,29 @@ TopologyGenerator::TopologyGenerator()
  * 
  */
 
-Network* TopologyGenerator::generate_mono_random_topology(char* gen_type, int rand_seed, int nb_nodes, int m_attach, int p_attach, int c_prob, int nb_protocols, float f_prob, int link_cost, int cv_cost, int ec_cost, int dc_cost)
+Network* TopologyGenerator::generate_mono_random_topology(map<string, string> parameters)
 {
-    generate_mono_random_graph(gen_type, rand_seed, nb_nodes, m_attach, p_attach, c_prob);
-    set<char> protocols = generate_protocols(nb_protocols);
+    generate_mono_random_graph(parameters["graph_model"], stoi(parameters["seed_nb"]), stoi(parameters["nb_nodes"]), stoi(parameters["m_attachement"]), stof(parameters["p_attachement"]), stof(parameters["p_connection"]));
+    set<char> protocols = generate_protocols(stoi(parameters["nb_protocols"]));
     set<AdaptationFunction*> adaptation_functions = generate_adaptation_functions(protocols);
-    set<Node*> nodes = generate_nodes(rand_seed, f_prob, adaptation_functions);
-    set<Link*> links = generate_links(link_cost, cv_cost, ec_cost, dc_cost, nodes);
+    set<Node*> nodes = generate_nodes(stoi(parameters["seed_nb"]), stof(parameters["p_function"]), adaptation_functions);
+    set<Link*> links = generate_links(stoi(parameters["link_cost"]), stoi(parameters["conversion_cost"]), stoi(parameters["encapsulation_cost"]), stoi(parameters["decapsulation_cost"]), nodes);
     Network *network = new Network(nodes, links, protocols, adaptation_functions);
     return network; 
+    return nullptr;
 }
 
 /**
  * 
  */
 
-void TopologyGenerator::generate_mono_random_graph(char* gen_type, int rand_seed, int nb_nodes, int m_attach, int p_attach, int c_prob)
+void TopologyGenerator::generate_mono_random_graph(string gen_type, int rand_seed, int nb_nodes, int m_attach, int p_attach, int c_prob)
 {
-    if (strcmp(gen_type,"ER") == 0) 
+    if (gen_type.compare("erdos_renyi") == 0) 
     {
         graph_generator->generate_erdos_renyi_graph(rand_seed, GNP, nb_nodes, c_prob, UnDirected, NoLoops);
     }
-    else if (strcmp(gen_type,"BA") == 0) 
+    else if (gen_type.compare("barabasi_albert") == 0) 
     {
         graph_generator->generate_barabasi_albert_graph(rand_seed, PSUMTREE, nb_nodes, p_attach, m_attach, 0, 0, 1, UnDirected, 0);
     }
@@ -240,40 +241,39 @@ Node* TopologyGenerator::get_node(set<Node*> nodes, int _id)
  * 
  */
 
-void TopologyGenerator::write_topology(Network *network, char *out_path)
+void TopologyGenerator::write_topology(Network *network, string file_name)
 {
-    ofstream topo_file;
-    auto path = out_path + string{".txt"} ; 
-    topo_file.open (path);
-    if(!topo_file) 
+    ofstream network_file; 
+    network_file.open(file_name, ios::out);
+    if(!network_file) 
     { 
        cerr <<"error : output file not defined !" << endl; 
     }
     else
     {
-        topo_file << "MULTILAYER NETWORK (nb_of_nodes nb_of_links nb_of_protocols)" << endl;
-        topo_file << network->get_nodes().size() << ' ' 
+        network_file << "MULTILAYER NETWORK (nb_of_nodes nb_of_links nb_of_protocols)" << endl;
+        network_file << network->get_nodes().size() << ' ' 
                   << network->get_links().size() << ' ' 
                   << network->get_protocols().size() << endl; 
-        topo_file << endl;
-        topo_file << "NODES (id_number list_of_protocols)" << endl;
+        network_file << endl;
+        network_file << "NODES (id_number list_of_protocols)" << endl;
         for(auto n : network->get_nodes())
         {
-            topo_file << n->get_id() << endl;
+            network_file << n->get_id() << endl;
         }
-        topo_file << endl;
-        topo_file << "LINKS (src_node dest_node list_of_adaptation_functions_with_costs)" << endl;
+        network_file << endl;
+        network_file << "LINKS (src_node dest_node list_of_adaptation_functions_with_costs)" << endl;
         for(auto l : network->get_links())
         {
-            topo_file << l->get_src() << ' ' << l->get_dest() ;
+            network_file << l->get_src() << ' ' << l->get_dest() ;
             for(auto p : l->get_map_cost())
             {
-                topo_file << ' ' << p.first->get_type() << ' ' << p.first->get_from() << ' ' << p.first->get_to()  
+                network_file << ' ' << p.first->get_type() << ' ' << p.first->get_from() << ' ' << p.first->get_to()  
                 << ' ' << p.second ;
             }
-            topo_file << endl;
+            network_file << endl;
         }
-        topo_file.close();
+        network_file.close();
     }
 }
 
