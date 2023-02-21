@@ -18,9 +18,9 @@ using namespace std;
  * 
  */
 
-map<string, string> parse_parameters(char *argv[])
+map<string, string> parse_parameters(string params_file)
 {
-	ifstream file(argv[1]);
+	ifstream file(params_file);
 	if ( !file.is_open() )
 	{
 		cerr << "error : failed to open parameters file !" << endl;
@@ -39,7 +39,7 @@ map<string, string> parse_parameters(char *argv[])
 		parameters[name] = value;
 		if ( file.bad() )
 		{
-			std::cerr << "error : while reading the parameters file !" << endl;
+			cerr << "error : while reading the parameters file !" << endl;
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -51,16 +51,26 @@ map<string, string> parse_parameters(char *argv[])
  * 
  */
 
+vector<string> *load_infilenames(int argc, char *argv[])
+{
+	vector<string> *infilenames = new vector<string>(argc-3);
+	for (int i = 0; i < argc-3; i++)
+	{
+		infilenames->at(i) = argv[i+3];
+	}
+	return infilenames;
+}
+
+/**
+ * 
+ */
+
 int main(int argc, char *argv[])
 {   
-    map<string, string> parameters = parse_parameters(argv);
-	
-	TopologyGenerator *topology_generator = new TopologyGenerator();
-	Network* network = topology_generator->generate_mono_random_topology(parameters);
-	topology_generator->write_topology(network,argv[2]);
-	
-	delete network;
+    map<string, string> parameters = parse_parameters(argv[1]);
+	vector<string> *infilenames = load_infilenames(argc,argv);
+	string outfilename = argv[2];
+	TopologyGenerator *topology_generator = new TopologyGenerator(parameters,outfilename,infilenames);
 	delete topology_generator;	
-
 	return EXIT_SUCCESS;
 }

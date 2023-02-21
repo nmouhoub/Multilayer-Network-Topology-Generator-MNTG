@@ -8,18 +8,19 @@
  *
  */
 
-AdaptationFunction::AdaptationFunction(int _type, char _from, char _to)
+AdaptationFunction::AdaptationFunction(string _type, int _from, int _to, int _cost)
 {
 	type = _type; 
 	from = _from;
 	to   = _to;
+	cost = _cost;
 }
 
 /**
  *
  */
 
-int AdaptationFunction::get_type()
+string AdaptationFunction::get_type()
 {
 	return type;
 }
@@ -28,7 +29,7 @@ int AdaptationFunction::get_type()
  *
  */
 
-char AdaptationFunction::get_from()
+int AdaptationFunction::get_from()
 {
 	return from;
 }
@@ -37,7 +38,16 @@ char AdaptationFunction::get_from()
  *
  */
 
-char AdaptationFunction::get_to()
+int AdaptationFunction::get_to()
 {
 	return to;
+}
+
+/**
+ *
+ */
+
+int AdaptationFunction::get_cost()
+{
+	return cost;
 }

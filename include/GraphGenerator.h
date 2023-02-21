@@ -9,10 +9,11 @@
 #include <igraph.h>
 #include <iostream>
 #include <utility>
+#include <vector>
+#include <tuple>
 #include <set>
 
 using namespace std;
-
 
 
 /**
@@ -41,15 +42,16 @@ class IGraphGenerator
 {
 	public:
 		virtual ~IGraphGenerator() {}
-		virtual void generate_erdos_renyi_graph(int rand_seed, ERGen type, int n, float p, int directed, int loops) = 0;
-		virtual void generate_barabasi_albert_graph(int rand_seed, BAGen type, int n, float p, int m, const igraph_vector_t *outseq, int outpref, float A, int directed, const igraph_t *start_from) = 0;
-		virtual Graph get_graph() = 0;
-		virtual int get_nb_edges_graph() = 0;
-		virtual int get_nb_vertices_graph() = 0;
-		virtual set<int> get_vertices_graph() = 0;
-		virtual set<pair<int,int>> get_edges_graph() = 0; 
-		virtual set<int> get_neighbors(int id) = 0;
-		virtual void write_graph(FILE *path) = 0;
+		virtual void generate_erdos_renyi_graph(Graph *g, int rand_seed, int n, float p) = 0;
+		virtual void generate_barabasi_albert_graph(Graph *g, int rand_seed, int n, float p, int m) = 0;
+		virtual int get_nb_edges_graph(Graph *g) = 0;
+		virtual int get_nb_vertices_graph(Graph *g) = 0;
+		virtual set<int> get_vertices_graph(Graph *g) = 0;
+		virtual set<tuple<int,int,int>> get_edges_graph(Graph *g) = 0; 
+		virtual set<int> get_neighbors(Graph *g, int id) = 0;
+		virtual void delete_vertices(Graph *g, set<int> vertices) = 0;
+		virtual void read_graph(Graph *g, string infilename) = 0;
+		virtual void write_graph(Graph *g, string outfilename) = 0;
 };
 
 
@@ -59,19 +61,18 @@ class IGraphGenerator
 
 class GraphGenerator : public IGraphGenerator
 {
-	private: 
-		Graph g;
 	public:
 		virtual ~GraphGenerator(); 
-		virtual void generate_erdos_renyi_graph(int rand_seed, ERGen type, int n, float p, int directed, int loops);
-		virtual void generate_barabasi_albert_graph(int rand_seed, BAGen type, int n, float p, int m, const igraph_vector_t *outseq, int outpref, float A, int directed, const igraph_t *start_from);
-		virtual Graph get_graph();
-		virtual int get_nb_edges_graph();
-		virtual int get_nb_vertices_graph();
-		virtual set<int> get_vertices_graph();
-		virtual set<pair<int,int>> get_edges_graph(); 
-		virtual set<int> get_neighbors(int id);
-		virtual void write_graph(FILE *path);
+		virtual void generate_erdos_renyi_graph(Graph *g, int rand_seed, int n, float p);
+		virtual void generate_barabasi_albert_graph(Graph *g, int rand_seed, int n, float p, int m);
+		virtual int get_nb_edges_graph(Graph *g);
+		virtual int get_nb_vertices_graph(Graph *g);
+		virtual set<int> get_vertices_graph(Graph *g);
+		virtual set<tuple<int,int,int>> get_edges_graph(Graph *g); 
+		virtual set<int> get_neighbors(Graph *g, int id);
+		virtual void delete_vertices(Graph *g, set<int> vertices);
+		virtual void read_graph(Graph *g, string infilename);
+		virtual void write_graph(Graph *g, string outfilename);
 };
 
 #endif

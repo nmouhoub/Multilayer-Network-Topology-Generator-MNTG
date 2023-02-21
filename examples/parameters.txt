@@ -1,32 +1,35 @@
 // the name of the generated network file 
 file_name net_1000
 
-// network generator model
+// network generator model (mono_random, multi_random, multi_real)
 net_model mono_random
 
-// load graphs 
-load_graphs 0
+// load graphs (0,1,2,...)
+load_graphs 1
 
 // number of nodes in the generated topology 
 nb_nodes 1000
 
-// number of protocols in the generated topology
+// number of protocols in the generated topology (1,2,3,... )
 nb_protocols 2
 
 // the seed number used in all random generations 
 seed_nb 17354 
 
-// graph generator model 
+// graph generator model (barabasi_albert, erdos_renyi)
 graph_model barabasi_albert
 
 // parameters for adaptation functions costs 
-link_cost 1
+retransmission_cost 1
 conversion_cost 2
 encapsulation_cost 3
 decapsulation_cost 3
 
 // probability of availability of adaptation function per node 
-p_function 0.05
+p_retransmission 0.05
+p_conversion 0.05
+p_encapsulation 0.05
+p_decapsulation 0.05
 
 // parameters for the barabasi_albert generator 
 m_attachement 5

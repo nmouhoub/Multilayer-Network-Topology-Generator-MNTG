@@ -11,10 +11,6 @@
 
 using namespace std;
 
-# define CV  0	// macro of conversion function 
-# define EC  1	// macro of encapsulation function
-# define DC  2	// macro of decapsulation function
-
 /**
  *
  */
@@ -22,15 +18,17 @@ using namespace std;
 class AdaptationFunction
 {
     private:
-	    int type; 
-		char from; 
-		char to; 
+	    string type; 
+		int from; 
+		int to;
+		int cost;  
 
     public:		
-    	AdaptationFunction(int _type, char _from, char _to);
-		int get_type();
-		char get_from();
-    	char get_to(); 
+    	AdaptationFunction(string _type, int _from, int _to, int _cost);
+		string get_type();
+		int get_from();
+    	int get_to(); 
+		int get_cost();
 };
 
 #endif

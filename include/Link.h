@@ -15,25 +15,19 @@ using namespace std;
  *
  */
 
-typedef unordered_map<AdaptationFunction*, int> MapCost; // 
-
 
 class Link
 {
 	private : 
 		int src; 
 		int dest; 
-		MapCost map_cost;
+		int cost;
 
 	public :
-		Link(int _src, int _dest);
+		Link(int _src, int _dest, int _cost);
 		int get_src();
 		int get_dest();	
-		void set_src(int _src);
-		void set_dest(int _dest);
-		MapCost get_map_cost();
-		void set_map_cost(MapCost _map_cost);
-		int get_cost(AdaptationFunction *adapt_func);
+		int get_cost();
 };
 
 
