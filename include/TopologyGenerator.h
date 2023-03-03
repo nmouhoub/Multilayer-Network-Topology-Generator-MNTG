@@ -31,20 +31,16 @@ class TopologyGenerator
         
     public:
         TopologyGenerator(map<string, string> parameters, string out_file, vector<string> *infilenames);
-
-        void generate_mono_random_topology(map<string, string> parameters, string infilename);
-        void generate_multi_random_topology(map<string, string> parameters, vector<string> *infilenames);
-        
-        void read_graph(Graph *g, string infilename);
-        void generate_random_graph(Graph *g, string gen_type, int rand_seed, int nb_nodes, int m_attach, int p_attach, int c_prob);
-        
-        tuple<set<Node*>,set<int>> generate_mono_random_nodes(int rand_seed, float p_retransmission, float p_conversion, float p_encapsulation, float p_decapsulation, set<AdaptationFunction*> adaptation_functions);
-        set<Link*> generate_mono_random_links(set<int> unused_vertices);
-
-        set<int> generate_protocols(int nb_protocols);
-        set<AdaptationFunction*> generate_adaptation_functions(int retransmission_cost, int conversion_cost, int encapsulation_cost, int decapsulation_cost,set<int> protocols);
-        set<AdaptationFunction*> generate_adaptation_functions_node(set<AdaptationFunction*> adaptation_functions, float p_retransmission, float p_conversion, float p_encapsulation, float p_decapsulation, int node_id, int rand_seed);
-       
+        void generate_topology(map<string, string> parameters, vector<string> *infilenames);
+        void read_graphs(map<string, string> parameters,vector<string> *infilenames);
+        void generate_random_graphs(map<string, string> parameters);
+        set<int> generate_protocols(map<string, string> parameters);
+        set<AdaptationFunction*> generate_adaptation_functions(map<string,string> parameters,set<int> protocols);
+        tuple<set<Node*>,map<int,int>,set<int>> generate_nodes(map<string,string> parameters,set<AdaptationFunction*> adaptation_functions);
+        int random_choice_vertex(int seed_nb, int g_id, set<int> selected_ids);
+        int random_choice_graph(int seed_nb, set<int> selected_graphs);
+        set<AdaptationFunction*> generate_adaptation_functions_node(map<string,string> parameters, int node_id, set<int> protocols, set<AdaptationFunction*> adaptation_functions);
+        set<Link*> generate_links(map<int,int> map_id, set<int> unused_vertices);
         void write_topology(string file_name); 
         ~TopologyGenerator();
 };
