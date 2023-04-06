@@ -30,9 +30,9 @@ install:
 	@echo "****************Make Install Successful********************"
 
 all: 
-	$(MAKE) prog doc
+	$(MAKE) mntg doc
 
-prog: $(OBJ_PROG)
+mntg: $(OBJ_PROG)
 	$(CXX) $^ -o $@ $(LDFLAGS) $(LDLIBS)
 	@echo "****************Make Program Successful********************"   
 
@@ -48,10 +48,10 @@ doc:
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean :
-	$(MAKE) clean_prog clean_doc clean_topologies
+	$(MAKE) clean_mntg clean_doc clean_topologies
 	
-clean_prog :
-	$(RM) -f prog $(OBJ_PROG) $(OBJ_TEST)
+clean_mntg :
+	$(RM) -f mntg $(OBJ_PROG) $(OBJ_TEST)
 	@echo "************Clean Program And Test Successful**************"
 
 clean_doc : 
