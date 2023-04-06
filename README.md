@@ -57,15 +57,15 @@ There are several ways to launch the program:
 
 The meaning of each program option:
 
-* g : generator type (BA: Barabasi-Albert, ER: Erdos_Renyi)
+* g : generation method (BA: Barabasi-Albert, ER: Erdos_Renyi)
 * n : number of routers of the network (non negative)
 * m : number of links for Barabasi-Albert generator (non negative)
 * p : connection probability for the graph generator (between 0. and 1.)
-* a : number of protocols of the network (non negative)
+* a : number of network layers (non negative)
 * f : adaptation function probability for routers (between 0. and 1.)
-* s : maximum stack of protocols (non negative)
+* s : maximum stack size of protocol layers (non negative)
 * r : number of runs (non-zero and non negative)
-* i : input_file topology (ex:Topologies/topo.txt)
+* i : input file topology (ex:Topologies/topo.txt)
 * o : output file topology (ex: Topologies/topo.txt)
 * h : help
 
@@ -97,7 +97,7 @@ Documentation will be in Doc/doc/index.html
 
 ## Licence
 
-CNU LGPL version 3.
+GNU LGPL version 3.
 
 ## Version
 
