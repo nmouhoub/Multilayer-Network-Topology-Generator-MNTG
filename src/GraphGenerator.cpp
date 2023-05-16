@@ -1,3 +1,17 @@
+/*
+    This file is part of MNTG.
+    MNTG is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+    MNTG is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with MNTG.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 /**
  * 
  */
@@ -10,7 +24,8 @@
 
 void GraphGenerator::generate_erdos_renyi_graph(Graph *g, int rand_seed, int n, float p)
 {
-
+	//igraph_set_attribute_table(&igraph_cattribute_table);
+	igraph_i_set_attribute_table(&igraph_cattribute_table);
 	int error_code = igraph_rng_seed(igraph_rng_default(), rand_seed);
 	if ( error_code != 0 )
 	{
@@ -28,6 +43,8 @@ void GraphGenerator::generate_erdos_renyi_graph(Graph *g, int rand_seed, int n, 
 
 void GraphGenerator::generate_barabasi_albert_graph(Graph *g, int rand_seed, int n, float p, int m)
 {
+	//igraph_set_attribute_table(&igraph_cattribute_table);
+	igraph_i_set_attribute_table(&igraph_cattribute_table);
 	int error_code = igraph_rng_seed(igraph_rng_default(), rand_seed);
 	if ( error_code != 0 )
 	{
@@ -36,6 +53,25 @@ void GraphGenerator::generate_barabasi_albert_graph(Graph *g, int rand_seed, int
 	else
 	{
 		igraph_barabasi_game(g, n, p, m, 0, 0, 1, UnDirected, PSUMTREE, 0);
+	}
+}
+
+/**
+ * 
+ */
+
+void GraphGenerator::generate_watts_strogatz_graph(Graph *g, int rand_seed, int n, float p, int k)
+{
+	//igraph_set_attribute_table(&igraph_cattribute_table);
+	igraph_i_set_attribute_table(&igraph_cattribute_table);
+	int error_code = igraph_rng_seed(igraph_rng_default(), rand_seed);
+	if ( error_code != 0 )
+	{
+		cerr << "random seed error" << endl; 
+	}
+	else
+	{
+		igraph_watts_strogatz_game(g, 1, n, k, p, NoLoops, false);
 	}
 }
 
@@ -61,19 +97,19 @@ int GraphGenerator::get_nb_edges_graph(Graph *g)
  * 
  */
 
-set<int> GraphGenerator::get_vertices_graph(Graph *g)
+vector<int> GraphGenerator::get_vertices_graph(Graph *g)
 {
-	set<int> vertices; 
+	vector<int> vertices; 
 	VertexIter vit;
     igraph_vit_create(g, igraph_vss_all() , &vit);
     while (!IGRAPH_VIT_END(vit)) 
     {
         int v_id = IGRAPH_EIT_GET(vit);
-        vertices.insert(v_id);
+        vertices.push_back(v_id);
         IGRAPH_VIT_NEXT(vit);
     }
     igraph_vit_destroy(&vit);
-    return vertices;
+	return vertices;
 }	
 
 /**

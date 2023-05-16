@@ -2,42 +2,47 @@
 file_name net_1000
 
 // network generator model (mono_random, multi_random, multi_real)
-net_model mono_random
+net_model multi_random
 
 // load graphs (0,1,2,...)
-load_graphs 1
-
-// number of nodes in the generated topology 
-nb_nodes 1000
+load_graphs 0
 
 // number of protocols in the generated topology (1,2,3,... )
 nb_protocols 2
 
+// number of nodes in the generated graph(s)
+nb_nodes_g_0 160000     
+nb_nodes_g_1 160000
+
 // number of nodes according to number of communicated protocols
-nb_nodes_1 1
-nb_nodes_2 4
+nb_nodes_p_1 10000
+nb_nodes_p_2 10000
 
 // the seed number used in all random generations 
-seed_nb 17354 
+seed_nb 17350 
 
-// graph generator model (barabasi_albert, erdos_renyi)
+// graph generator model (barabasi_albert, erdos_renyi, watts_strogatz)
 graph_model barabasi_albert
 
 // parameters for adaptation functions costs 
 retransmission_cost 1
-conversion_cost 2
-encapsulation_cost 3
-decapsulation_cost 3
+conversion_cost 1
+encapsulation_cost 1
+decapsulation_cost 1
 
 // probability of availability of adaptation function per node 
-p_retransmission 0.15
-p_conversion 0.15
-p_encapsulation 0.15
-p_decapsulation 0.15
+p_retransmission 0.05
+p_conversion 0.05
+p_encapsulation 0.05
+p_decapsulation 0.05
 
 // parameters for the barabasi_albert generator 
-m_attachement 5
+m_attachement 3
 p_attachement 2
 
 // parameters for the erdos_renyi generator 
 p_connection 0.10
+
+// parameters for the watts_strogatz generator 
+k_mean_degree 2
+p_beta 0.01

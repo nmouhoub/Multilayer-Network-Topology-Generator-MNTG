@@ -1,3 +1,17 @@
+/*
+    This file is part of MNTG.
+    MNTG is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation, either version 3 of
+    the License, or (at your option) any later version.
+    MNTG is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU Lesser General Public License for more details.
+    You should have received a copy of the GNU Lesser General Public License
+    along with MNTG.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 /**
  *
  */
@@ -44,9 +58,10 @@ class IGraphGenerator
 		virtual ~IGraphGenerator() {}
 		virtual void generate_erdos_renyi_graph(Graph *g, int rand_seed, int n, float p) = 0;
 		virtual void generate_barabasi_albert_graph(Graph *g, int rand_seed, int n, float p, int m) = 0;
+		virtual void generate_watts_strogatz_graph(Graph *g, int rand_seed, int n, float p, int k) = 0;
 		virtual int get_nb_edges_graph(Graph *g) = 0;
 		virtual int get_nb_vertices_graph(Graph *g) = 0;
-		virtual set<int> get_vertices_graph(Graph *g) = 0;
+		virtual vector<int> get_vertices_graph(Graph *g) = 0;
 		virtual set<tuple<int,int,int>> get_edges_graph(Graph *g) = 0; 
 		virtual set<int> get_neighbors(Graph *g, int id) = 0;
 		virtual void delete_vertices(Graph *g, set<int> vertices) = 0;
@@ -65,9 +80,10 @@ class GraphGenerator : public IGraphGenerator
 		virtual ~GraphGenerator(); 
 		virtual void generate_erdos_renyi_graph(Graph *g, int rand_seed, int n, float p);
 		virtual void generate_barabasi_albert_graph(Graph *g, int rand_seed, int n, float p, int m);
+		virtual void generate_watts_strogatz_graph(Graph *g, int rand_seed, int n, float p, int k);
 		virtual int get_nb_edges_graph(Graph *g);
 		virtual int get_nb_vertices_graph(Graph *g);
-		virtual set<int> get_vertices_graph(Graph *g);
+		virtual vector<int> get_vertices_graph(Graph *g);
 		virtual set<tuple<int,int,int>> get_edges_graph(Graph *g); 
 		virtual set<int> get_neighbors(Graph *g, int id);
 		virtual void delete_vertices(Graph *g, set<int> vertices);
