@@ -1,34 +1,33 @@
-# MNTG: A New Flexible Multilayer Network Topology Generator
+# Multilayer Network Topology Generator (MNTG)
 
-This project is a multilayer network topology generator
+This project is a multilayer network topology generator called MNTG and written in C++.
+
 
 ## Requirements
 
-You need to install all the following packages
+You will need to have or install all the following packages:
 
-* Igraph 0.7.1
-* CMake 3.2 and newer
+* CMake 3.2 or newer
 * C++17 capable compiler
-* Doxygen for docs (*Graphviz for more graphs in docs, PlantUML for more UML diagrams*, PlantUML needs java)
+* Doxygen for docs
+* (optional) Graphviz for more graphs in docs
+* (optional) PlantUML for more UML diagrams (PlantUML needs Java)
 
+## Building the program
 
-## Running the program
-
-For compiling the program run 
+For building the program, just type:
 
 ```
-make prog
+make mntg
 ```
-
-And to run simulation read the usage section.
 
 ## Usage 
 
 Run the program with an input file that contains the network topology.
 
-
 ```
-./prog parameters_file output_file input_file_1 input_file_2 ... input_file_k
+./mntg parameters_file output_file input_file_1 input_file_2 ... input_file_k
+
 ```
 
 ## Documentation
@@ -39,13 +38,17 @@ Use the following command to run the automated documentation for this project:
 make doc
 ./doc
 ```
-Documentation will be in Doc/doc/index.html
 
+Documentation will be in Doc/doc/index.html
 
 ## Built With
 
 * [Igraph](https://igraph.org/c/) - Used to generate graphs.
 * [Doxygen](https://github.com/kracejic/EmptyDoxygenCMake) - Used to generate documentation.
+
+## Licence
+
+GNU LGPL version 3.
 
 ## Version
 
