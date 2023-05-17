@@ -41,6 +41,8 @@ make doc
 
 Documentation will be in Doc/doc/index.html
 
+Documentation is also available on the [Wiki](https://gitub.u-bordeaux.fr/hera/random-generator/-/wikis/MNTG).
+
 ## Built With
 
 * [Igraph](https://igraph.org/c/) - Used to generate graphs.
