@@ -7,15 +7,15 @@ This project is a multilayer network topology generator called MNTG and written 
 
 You will need to have or install all the following packages:
 
-* CMake 3.2 or newer
+* Make 4.0 or newer
 * C++17 capable compiler
-* Doxygen for docs
+* (optional) Doxygen for docs
 * (optional) Graphviz for more graphs in docs
 * (optional) PlantUML for more UML diagrams (PlantUML needs Java)
 
 ## Building the program
 
-For building the program, just type:
+For building the program, just type in the >random-generator directory:
 
 ```
 make mntg
