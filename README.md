@@ -41,7 +41,7 @@ make doc
 
 -->
 
-Source code documentation is available in random-generator/doc/html/index.html
+Source code documentation is available in `random-generator/doc/html/index.html`.
 
 Documentation is available on the [Wiki](https://gitub.u-bordeaux.fr/hera/random-generator/-/wikis/home).
 
