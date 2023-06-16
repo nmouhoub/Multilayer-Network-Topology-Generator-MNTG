@@ -7,8 +7,9 @@ This project is a multilayer network topology generator called MNTG and written 
 
 You will need to have or install all the following packages:
 
-* Make 4.0 or newer
 * C++17 capable compiler
+* make 4.0 or newer
+* igraph 0.8.5 or newer
 * (optional) Doxygen for docs
 * (optional) Graphviz for more graphs in docs
 * (optional) PlantUML for more UML diagrams (PlantUML needs Java)
