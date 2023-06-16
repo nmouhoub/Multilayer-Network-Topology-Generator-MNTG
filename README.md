@@ -41,7 +41,7 @@ make doc
 
 Documentation will be in Doc/doc/index.html
 -->
-Documentation is available on the [Wiki](https://gitub.u-bordeaux.fr/hera/random-generator/-/wikis/MNTG).
+Documentation is available on the [Wiki](https://gitub.u-bordeaux.fr/hera/random-generator/-/wikis/home).
 
 ## Built With
 
