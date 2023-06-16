@@ -31,7 +31,7 @@ Run the program with an input file that contains the network topology.
 ```
 
 ## Documentation
-
+<!---
 Use the following command to run the automated documentation for this project:
 
 ```
@@ -40,8 +40,8 @@ make doc
 ```
 
 Documentation will be in Doc/doc/index.html
-
-Documentation is also available on the [Wiki](https://gitub.u-bordeaux.fr/hera/random-generator/-/wikis/MNTG).
+-->
+Documentation is available on the [Wiki](https://gitub.u-bordeaux.fr/hera/random-generator/-/wikis/MNTG).
 
 ## Built With
 
