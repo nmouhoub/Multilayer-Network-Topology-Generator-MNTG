@@ -2,21 +2,20 @@
 
 This project is a multilayer network topology generator called MNTG and written in C++.
 
-
 ## Requirements
 
-You will need to have or install all the following packages:
+You will need to have or install all the following software packages:
 
 * C++17 capable compiler
 * make 4.0 or newer
-* igraph 0.8.5 or newer
-* (optional) Doxygen for docs
-* (optional) Graphviz for more graphs in docs
-* (optional) PlantUML for more UML diagrams (PlantUML needs Java)
+* [igraph](https://igraph.org/c/) 0.8.5 or newer
+* (optional) [Doxygen](https://www.doxygen.nl/) for docs
+* (optional) [Graphviz](https://graphviz.org/) for more graphs in docs
+* (optional) [PlantUML](https://plantuml.com/) for more UML diagrams (PlantUML needs Java)
 
 ## Building the program
 
-For building the program, just type in the >random-generator directory:
+For building the program, just type the following command in the `random-generator` directory:
 
 ```
 make mntg
@@ -24,7 +23,7 @@ make mntg
 
 ## Usage 
 
-Run the program with an input file that contains the network topology.
+Run the program with a parameters file and one or more input files that contains network topologies.
 
 ```
 ./mntg parameters_file output_file input_file_1 input_file_2 ... input_file_k
@@ -40,14 +39,11 @@ make doc
 ./doc
 ```
 
-Documentation will be in Doc/doc/index.html
 -->
+
+Source code documentation is available in random-generator/doc/index.html
+
 Documentation is available on the [Wiki](https://gitub.u-bordeaux.fr/hera/random-generator/-/wikis/home).
-
-## Built With
-
-* [Igraph](https://igraph.org/c/) - Used to generate graphs.
-* [Doxygen](https://github.com/kracejic/EmptyDoxygenCMake) - Used to generate documentation.
 
 ## Licence
 
