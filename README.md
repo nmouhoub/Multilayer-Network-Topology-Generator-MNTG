@@ -23,6 +23,36 @@ make mntg
 
 ## Usage 
 
+Configure the general parameters in a ".config" parameters file.
+
+```
+[net_model]: the network generation model "mono_random" or "multi_random".  
+[load_graphs]: the number of loaded graphs, 0 otherwise.
+[nb_protocols]: the number of protocols available in the generated network.
+[seed_nb]: the seed number used in all random generations.
+[nb_nodes_g_0, nb_nodes_g_1, ...] : the size of each generated graph when the graphs are generated and not loaded.
+[nb_nodes_p_1, nb_nodes_p_2, ...] : the number of nodes according to the number of communicated protocols when the multi_random mode is used.
+
+```
+
+Configure the following parameters of adaptation functions.  
+
+```
+[retransmission_cost, conversion_cost, encapsulation_cost, decapsulation_cost]: the cost of each adaptation functions.
+[p_retransmission, p_conversion, p_encapsulation, p_decapsulation]: the probability of availability of each adaptation function per node.
+
+```
+
+Configure the following parameters for the random graph generation.
+
+```
+[graph_model]: the graph generator model "barabasi_albert" or "erdos_renyi" or "watts_strogatz".
+[m_attachement, p_attachement]: the parameters of barabasi_albert generator.
+[p_connection]: the parameters of erdos_renyi generator.
+[k_mean_degree, p_beta]: the parameters of watts_strogatz generator.
+
+```
+
 Run the program with a parameters file, an output_file and one or more input files that contains network graphs (if you want to load one or more graphs).
 
 ```
