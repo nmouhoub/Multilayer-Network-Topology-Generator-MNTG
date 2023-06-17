@@ -33,7 +33,7 @@ doc:
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean :
-	$(MAKE) clean_prog clean_doc
+	$(MAKE) clean_mntg clean_doc
 
 clean_mntg :
 	$(RM) -f mntg $(OBJ_PROG) $(OBJ_TEST)

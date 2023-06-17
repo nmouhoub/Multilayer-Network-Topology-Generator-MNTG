@@ -26,7 +26,6 @@ TopologyGenerator::TopologyGenerator(map<string, string> parameters, string out_
 {
     graph_generator = new GraphGenerator();
     generate_topology(parameters,infilenames);
-    write_txt_topology(out_file);
     write_topology(out_file);
 }
 
@@ -61,10 +60,6 @@ void TopologyGenerator::read_graphs(map<string, string> parameters,vector<string
     graphs = new vector<Graph*>(stoi(parameters["load_graphs"]));
     for (int i = 0; i < stoi(parameters["load_graphs"]); i++) 
     {
-        // TODO: string graph_tmp_file_i = reorder_graph_file_i(infilenames->at(i));
-        // TODO: graph_generator->read_graph(graphs->at(i),graph_tmp_file_i);
-        // TODO: delete graph_tmp_file_i;
-        // TODO: reorder_commun_id_file = .....;
         graphs->at(i) = new Graph(); 
         graph_generator->read_graph(graphs->at(i),infilenames->at(i));
     }
@@ -387,85 +382,12 @@ void TopologyGenerator::write_topology(string file_name)
     }
     else
     {
-        network_file << network->get_nodes().size() << ' ' 
-                  << network->get_links().size() << ' ' 
-                  << network->get_protocols().size() << endl; 
-        network_file << "==================" << endl;
-        for(auto n : network->get_nodes())
-        {
-            network_file << n->get_id() << endl;
-        }
-        network_file << "==================" << endl;
-        for(auto l : network->get_links())
-        {
-            int link_src = l->get_src();
-            int link_dest = l->get_dest();
-            int link_cost = l->get_cost();
-            for(auto f : network->get_node_id(link_src)->get_adapt_functions())
-            {
-                int f_type;
-                if ( (f->get_type().compare("RT") == 0) || (f->get_type().compare("CV") == 0))
-                {
-                    f_type = 0;
-                }else if (f->get_type().compare("EC") == 0)
-                {
-                    f_type = 1;
-                }else if (f->get_type().compare("DC") == 0)
-                {
-                    f_type = 2;
-                }
-                network_file << '(' << link_src << " -> " << link_dest << ')' 
-                          << ' ' << f_type << ' ' << f->get_from() << ' ' << f->get_to()  
-                          << ' ' << f->get_cost()+link_cost << endl;
-            }
-            network_file << "==================" << endl;
-            for(auto f : network->get_node_id(link_dest)->get_adapt_functions())
-            {
-                int f_type;
-                if ( (f->get_type().compare("RT") == 0) || (f->get_type().compare("CV") == 0))
-                {
-                    f_type = 0;
-                }else if (f->get_type().compare("EC") == 0)
-                {
-                    f_type = 1;
-                }else if (f->get_type().compare("DC") == 0)
-                {
-                    f_type = 2;
-                }
-                network_file << '(' << link_dest << " -> " << link_src << ')' 
-                          << ' ' << f_type << ' ' << f->get_from() << ' ' << f->get_to()  
-                          << ' ' << f->get_cost()+link_cost << endl;
-            }
-            network_file << "==================" << endl;
-        }
-        network_file.close();
-    }
-}
-
-
-
-
-/**
- * 
- */
-
-void TopologyGenerator::write_txt_topology(string file_name)
-{
-    ofstream network_file; 
-    network_file.open(file_name, ios::out);
-    if(!network_file) 
-    { 
-       cerr <<"error : output file not defined !" << endl; 
-       exit(EXIT_FAILURE);
-    }
-    else
-    {
         network_file << "MULTILAYER NETWORK (nb_of_nodes nb_of_links nb_of_protocols)" << endl;
         network_file << network->get_nodes().size() << ' ' 
                   << network->get_links().size() << ' ' 
                   << network->get_protocols().size() << endl; 
         network_file << endl;
-        network_file << "NODES (id protocols adaptation_functions)" << endl;
+        network_file << "NODES (id [protocols] [adaptation_functions])" << endl;
         for(auto n : network->get_nodes())
         {
             network_file << n->get_id() << " [ ";
@@ -476,7 +398,7 @@ void TopologyGenerator::write_txt_topology(string file_name)
             network_file << "] [ " ;
             for(auto f : n->get_adapt_functions())
             {
-                network_file << "("<< f->get_type() << ' ' << f->get_from() << ' ' << f->get_to() << f->get_cost() << ") ";
+                network_file << "("<< f->get_type() << ' ' << f->get_from() << ' ' << f->get_to() << ' ' << f->get_cost() << ") ";
             }
             network_file << "]"<< endl;
         }

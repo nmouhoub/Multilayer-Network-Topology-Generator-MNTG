@@ -54,7 +54,6 @@ class TopologyGenerator
         tuple<set<Node*>,map<int,int>,set<int>> generate_nodes(map<string,string> parameters,set<AdaptationFunction*> adaptation_functions);
         set<Link*> generate_links(map<int,int> map_id, set<int> unused_vertices);
         void check_connectivity(set<Node*> nodes, set<Link*> links);
-        void write_txt_topology(string file_name); 
         void write_topology(string file_name); 
 
         tuple<set<Node*>,map<int,int>,set<int>> generate_multi_random_nodes(map<string,string> parameters,set<AdaptationFunction*> adaptation_functions);

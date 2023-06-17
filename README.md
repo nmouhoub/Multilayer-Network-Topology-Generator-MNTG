@@ -23,11 +23,35 @@ make mntg
 
 ## Usage 
 
-Run the program with a parameters file and one or more input files that contains network topologies.
+Run the program with a parameters file, an output_file and one or more input files that contains network graphs (if you want to load one or more graphs).
 
 ```
 ./mntg parameters_file output_file input_file_1 input_file_2 ... input_file_k
 
+```
+
+Example of generating a mono-random multilayer network (or with an input network graph).
+
+```
+./mntg examples/mono_random.config examples/mono_random.mntg
+```
+
+```
+./mntg examples/mono_random.config examples/mono_random.mntg examples/graph.net
+```
+
+```
+./mntg examples/mono_random.config examples/mono_random.mntg examples/weighted_graph.net
+```
+
+Example of generating a multi-random multilayer network (or with an input network graphs).
+
+```
+./mntg examples/multi_random.config examples/multi_random.mntg
+```
+
+```
+./mntg examples/multi_random.config examples/multi_random.mntg examples/graph.net examples/graph.net
 ```
 
 ## Documentation
