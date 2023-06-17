@@ -30,7 +30,9 @@ Run the program with a parameters file, an output_file and one or more input fil
 
 ```
 
-Example of generating a mono-random multilayer network (or with an input network graph).
+## Examples
+
+Sample command lines for generating a mono-random multilayer network (or with an input network graph).
 
 ```
 ./mntg examples/mono_random.config examples/mono_random.mntg
