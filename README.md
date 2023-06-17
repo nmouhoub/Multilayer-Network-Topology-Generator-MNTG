@@ -41,11 +41,11 @@ Sample command line for generating a mono-random multilayer network:
 Sample command lines for generating a mono-random multilayer network with an input network graph:
 
 ```
-./mntg examples/mono_random.config examples/mono_random.mntg examples/graph.net
+./mntg examples/mono_random.config examples/mono_random.mntg examples/graph_90.net
 ```
 
 ```
-./mntg examples/mono_random.config examples/mono_random.mntg examples/weighted_graph.net
+./mntg examples/mono_random.config examples/mono_random.mntg examples/weighted_graph_90.net
 ```
 
 Sample command line for generating a multi-random multilayer network:
@@ -57,7 +57,7 @@ Sample command line for generating a multi-random multilayer network:
 Sample command line for generating a multi-random multilayer network with two input network graphs:
 
 ```
-./mntg examples/multi_random.config examples/multi_random.mntg examples/graph.net examples/graph2.net
+./mntg examples/multi_random.config examples/multi_random.mntg examples/graph_90.net examples/graph_260.net
 ```
 
 ## Documentation
