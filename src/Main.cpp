@@ -17,9 +17,8 @@
  */
 
 #include <iomanip> 
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include <iostream>
+
 #include <sys/stat.h>
 #include "../include/TopologyGenerator.h"
 
@@ -80,11 +79,22 @@ vector<string> *load_infilenames(int argc, char *argv[])
  */
 
 int main(int argc, char *argv[])
-{   
-    map<string, string> parameters = parse_parameters(argv[1]);
-	vector<string> *infilenames = load_infilenames(argc,argv);
-	string outfilename = argv[2];
-	TopologyGenerator *topology_generator = new TopologyGenerator(parameters,outfilename,infilenames);
-	delete topology_generator;	
-	return EXIT_SUCCESS;
+{
+	if ( argc < 3 )
+	{
+		cerr << "Missing parameters on the command line.\n";
+		cerr << "Syntax: ./mntg <parameters_file> <output_file> [<input_file_1> <input_file_2> ... <input_file_k>]\n";
+		return EXIT_FAILURE;
+	}
+	else
+	{
+		map<string, string> parameters = parse_parameters(argv[1]);
+		string outfilename = argv[2];
+		vector<string> * infilenames = nullptr;
+		if ( argc >= 4 )
+			infilenames = load_infilenames(argc, argv);
+		TopologyGenerator * topology_generator = new TopologyGenerator(parameters, outfilename, infilenames);
+		delete topology_generator;
+		return EXIT_SUCCESS;
+	}
 }

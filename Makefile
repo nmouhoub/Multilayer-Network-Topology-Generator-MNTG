@@ -32,10 +32,9 @@ doc:
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ -c $<
 
-clean :
-	$(MAKE) clean_prog clean_doc
+clean_all : clean clean_doc
 
-clean_mntg :
+clean :
 	$(RM) -f mntg $(OBJ_PROG) $(OBJ_TEST)
 	@echo "************Clean Program And Test Successful**************"
 

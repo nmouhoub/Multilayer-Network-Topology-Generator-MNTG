@@ -19,9 +19,7 @@
 #ifndef ADAPTATION_FUNCTION_H
 #define ADAPTATION_FUNCTION_H
 
-#include <iostream> 
-#include <utility>
-#include <stack> 
+#include <string>
 
 using namespace std;
 
