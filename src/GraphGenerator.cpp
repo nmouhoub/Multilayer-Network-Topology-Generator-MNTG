@@ -16,11 +16,22 @@
  * 
  */
 
+#include <iostream>
+#include <utility>
+
 #include "../include/GraphGenerator.h"
 
 /**
  * 
  */
+
+#define UnDirected IGRAPH_UNDIRECTED 							//
+#define NoLoops IGRAPH_NO_LOOPS									//
+#define GNP IGRAPH_ERDOS_RENYI_GNP								//
+#define GNM IGRAPH_ERDOS_RENYI_GNM								//
+#define BAG IGRAPH_BARABASI_BAG									//
+#define PSUMTREE IGRAPH_BARABASI_PSUMTREE						//
+#define PSUMTREE_MULTIPLE IGRAPH_BARABASI_PSUMTREE_MULTIPLE		//
 
 void GraphGenerator::generate_erdos_renyi_graph(Graph *g, int rand_seed, int n, float p)
 {

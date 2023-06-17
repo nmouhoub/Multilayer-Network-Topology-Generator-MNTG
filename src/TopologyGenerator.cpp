@@ -17,7 +17,7 @@
  */
 
 #include "../include/TopologyGenerator.h"
-
+#include <iostream>
 /**
  * 
  */

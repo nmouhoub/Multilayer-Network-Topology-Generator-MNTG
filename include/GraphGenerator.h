@@ -20,37 +20,27 @@
 #ifndef GRAPH_GENERATOR_H
 #define GRAPH_GENERATOR_H
 
-#include <igraph.h>
-#include <iostream>
-#include <utility>
+#include <string>
 #include <vector>
 #include <tuple>
 #include <set>
 
-using namespace std;
+#include <igraph/igraph.h>
 
+typedef igraph_t Graph;									//
+typedef igraph_vit_t VertexIter;						//
+typedef igraph_eit_t EdgeIter; 							//
+typedef igraph_vs_t VertexSelect;						//
+typedef igraph_erdos_renyi_t ERGen;						//
+typedef igraph_barabasi_algorithm_t BAGen;				//
+
+using namespace std;
 
 /**
  *
  */
 
-
-typedef igraph_t Graph;									//							
-typedef igraph_vit_t VertexIter;						//			
-typedef igraph_eit_t EdgeIter; 							//		
-typedef igraph_vs_t VertexSelect;						//							
-typedef igraph_erdos_renyi_t ERGen;						//
-typedef igraph_barabasi_algorithm_t BAGen;				//
-
-
-#define UnDirected IGRAPH_UNDIRECTED 							//
-#define NoLoops IGRAPH_NO_LOOPS									//	
-#define GNP IGRAPH_ERDOS_RENYI_GNP								//
-#define GNM IGRAPH_ERDOS_RENYI_GNM								//
-#define BAG IGRAPH_BARABASI_BAG									//
-#define PSUMTREE IGRAPH_BARABASI_PSUMTREE						//
-#define PSUMTREE_MULTIPLE IGRAPH_BARABASI_PSUMTREE_MULTIPLE		//			
-
+//class Graph;
 
 class IGraphGenerator
 {

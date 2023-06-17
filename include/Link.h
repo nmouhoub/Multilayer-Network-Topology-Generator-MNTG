@@ -19,8 +19,6 @@
 #ifndef LINK_H
 #define LINK_H
 
-#include <utility> 
-#include <unordered_map>
 #include "../include/AdaptationFunction.h"
 
 using namespace std;
