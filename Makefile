@@ -1,8 +1,8 @@
-CCXX = g++        
-INCLUDES = -I/usr/local/include/igraph 
+CXX = g++        
+INCLUDES =  -I/igraph -I/usr/local/include/igraph
 CXXFLAGS = -g -Wall -Wextra -std=c++17
-LDFLAGS = -ldl -L/usr/local/lib 
-LDLIBS = -ligraph -pthread 
+LDFLAGS = -L/usr/local/lib 
+LDLIBS = -ligraph -pthread -ldl 
 MAKEDOC = make doc
 CMAKE = cmake 
 MKDIR = mkdir
@@ -13,7 +13,6 @@ RM = rm
 
 SRC_PROG = $(wildcard src/*.cpp)
 OBJ_PROG = $(SRC_PROG:.cpp=.o)
-
 
 all: 
 	$(MAKE) mntg doc
