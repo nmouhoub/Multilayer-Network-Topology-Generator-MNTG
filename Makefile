@@ -1,5 +1,5 @@
 CXX = g++        
-INCLUDES =  -I/igraph -I/usr/local/include/igraph
+INCLUDES =  -I/usr/local/include
 CXXFLAGS = -g -Wall -Wextra -std=c++17
 LDFLAGS = -L/usr/local/lib 
 LDLIBS = -ligraph -pthread -ldl 
